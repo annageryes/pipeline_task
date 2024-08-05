@@ -39,4 +39,8 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock   
 networks:
-    jenkins:
+    jenkins: 
+        driver: bridge
+        ipam:
+          config:
+            - subnet: 132.69.192.0/21

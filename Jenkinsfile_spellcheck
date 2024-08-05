@@ -1,0 +1,25 @@
+pipeline{
+    agent {label 'workers'} // needs to have ssh agent
+    parameters{
+        string(name: 'sleep_time', defaultValue:'2', description:'time to sleep')
+    }
+    stages{
+        
+           stage('spellcheck'){
+              steps {
+                script {
+            try {
+              def output = sh(returnStdout: true, script: 'codespell *').trim()
+              echo "Output: '${output}'"
+            } catch (Exception e) {
+                currentBuild.result = 'UNSTABLE' //so that if pylint failes if pylint failes 
+            }
+                
+        }
+        }
+
+    }
+}
+}
+
+
